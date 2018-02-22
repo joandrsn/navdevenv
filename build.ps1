@@ -7,7 +7,7 @@ function Set-Variables
     $script:ModuleName = "NAVDevEnv"
     $script:ModuleGuid = '26c93502-a9af-4242-8b10-dd1941b97f11' 
     $script:Author = 'Jonas Andersen'
-    $script:ModuleVersion = '1.0.0.2'
+    $script:ModuleVersion = '1.0.0.3'
     $script:Description = 'Wrapper for finsql.exe (Dynamics NAV Developer Enviroment)'
     $script:OutputFolder = Join-Path $PSScriptRoot "output"
     $script:OutputModuleFolder = Join-Path $OutputFolder $ModuleName
