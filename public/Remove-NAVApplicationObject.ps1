@@ -33,10 +33,8 @@ function Remove-NAVApplicationObject {
       $commands += 'Filter="{0}"' -f $Filter
     }
 
-    $command = $commands -join ","
-
     try {
-      Invoke-NAVIdeCommand -Command $command `
+      Invoke-NAVIdeCommand -CommandList $commands `
         -DatabaseServer $DatabaseServer `
         -DatabaseName $DatabaseName `
         -Username $Username `

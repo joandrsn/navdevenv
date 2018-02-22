@@ -34,16 +34,10 @@ function Start-NAVIde {
     return
   }
 
-  $parameters = @()
-  $parameters += 'ServerName="{0}"' -f $DatabaseServer
-  $parameters += 'Database="{0}"' -f $DatabaseName
-  $parameters += 'ID="{0}"' -f $DatabaseName
-  if ($PSCmdlet.ParameterSetName -eq "UsernamePassword") {
-    $parameters += 'NTAuthentication=1'
-    $parameters += 'username="{0}"' -f $DatabaseUsername
-    $parameters += 'password="{1}"' -f $DatabasePassword
-  }
-  $parameterstring = $parameters -join ","
+  $Argument = Get-CommonFinSQLArgument -DatabaseServer $DatabaseServer `
+    -DatabaseName $DatabaseName `
+    -Username $DatabaseUsername `
+    -Password $DatabasePassword
 
-  Start-Process -FilePath $NAVIde -ArgumentList $parameterstring
+  Start-Process -FilePath $NAVIde -ArgumentList $Argument
 }

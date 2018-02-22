@@ -7,8 +7,8 @@ function Export-NAVApplicationObject {
     [string] $Path,
     [ValidateNotNullOrEmpty()]
     [string] $DatabaseServer = '.',
-    [ValidateNotNullOrEmpty()]
     [string] $LogPath,
+    [ValidateNotNullOrEmpty()]
     [string] $Filter,
     [switch] $ExportTxtUnlicensed,
     [Parameter(Mandatory = $true, ParameterSetName = "DatabaseAuthentication")]
@@ -36,23 +36,22 @@ function Export-NAVApplicationObject {
     if ($Filter) {
       $commands += 'Filter="{0}"' -f $Filter
     }
-    $command = $commands -join ","
   
     try {
-      Invoke-NAVIdeCommand -Command $command `
+      Invoke-NAVIdeCommand -CommandList $commands `
         -DatabaseServer $DatabaseServer `
         -DatabaseName $DatabaseName `
+        -LogPath $LogPath `
         -Username $Username `
         -Password $Password `
         -NavServerName $NavServerName `
         -NavServerInstance $NavServerInstance `
         -NavServerManagementPort $NavServerManagementPort `
-        -LogPath $LogPath `
         -ErrorText "Error while exporting $Filter" `
         -Verbose:$VerbosePreference
     }
     catch {
-      Write-Error $_
+      Write-Error $PSItem
     }
   }
 }

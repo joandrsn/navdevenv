@@ -121,9 +121,8 @@ function Start-CompileNAVApplicationObject {
       if($Filter) {
         $commands += 'Filter="{0}"' -f $Filter
       }
-      $command = $commands -join ","
 
-      Invoke-NAVIdeCommand -Command $command `
+      Invoke-NAVIdeCommand -CommandList $commands `
         -DatabaseServer $DatabaseServer `
         -DatabaseName $DatabaseName `
         -Username $Username `

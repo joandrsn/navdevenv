@@ -29,7 +29,7 @@
     This commands joins all objects in all files in the MyAppSrc folder into a single file and then imports them in the MyApp database.
 #>
 function Import-NAVApplicationObject {
-  [CmdletBinding(DefaultParameterSetName = "All", SupportsShouldProcess = $true, ConfirmImpact = 'High')]
+  [CmdletBinding(DefaultParameterSetName = "All", ConfirmImpact = 'High')]
   Param(
     # Specifies one or more files to import.  
     [Parameter(Mandatory = $true, Position = 0, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
@@ -81,10 +81,9 @@ function Import-NAVApplicationObject {
     $commands += 'File="{0}"' -f $Path
     $commands += 'ImportAction="{0}"' -f $skipUnlicensed
     $commands += 'SynchronizeSchemaChanges="{0}"' -f $SynchronizeSchemaChanges
-    $command = $commands -join ","
 
     try {
-        Invoke-NAVIdeCommand -Command $command `
+        Invoke-NAVIdeCommand -CommandList $commands `
         -DatabaseServer $DatabaseServer `
         -DatabaseName $DatabaseName `
         -Username $Username `
@@ -97,7 +96,7 @@ function Import-NAVApplicationObject {
         -Verbose:$VerbosePreference
     }
     catch {
-        Write-Error $_
+        Write-Error $PSItem
     }
     
   }

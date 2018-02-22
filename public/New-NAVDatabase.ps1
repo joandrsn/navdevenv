@@ -48,17 +48,15 @@ function New-NAVDatabase {
     [Parameter(Mandatory = $true, ParameterSetName = "DatabaseAuthentication")]
     [string] $Password)
 
-  $logFile = (Join-Path $LogPath naverrorlog.txt)
   
   $commands = @()
   $commands += "Command=CreateDatabase"
   if ($Collation) {
     $commands += 'Collation={0}' -f $Collation
   }
-  $command = $commands -join ","
 
   try {
-    Invoke-NAVIdeCommand -Command $command `
+    Invoke-NAVIdeCommand -CommandList $commands `
       -DatabaseServer $DatabaseServer `
       -DatabaseName $DatabaseName `
       -Username $Username `
