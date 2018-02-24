@@ -21,7 +21,7 @@
     Compiles all codeunits in the MyApp database.
 
     .EXAMPLE
-    'Page','Codeunit','Table','XMLport','Report' | % { Compile-NAVApplicationObject -Database MyApp -Filter "Type=$_" -AsJob } | Receive-Job -Wait    
+    'Page','Codeunit','Table','XMLport','Report' | % { Compile-NAVApplicationObject -Database MyApp -Filter "Type=$_" -AsJob } | Receive-Job -Wait
     Compiles all uncompiled Pages, Codeunits, Tables, XMLports, and Reports in the MyApp database in parallel and wait until it is done. Note that some objects may remain uncompiled due to race conditions. Those remaining objects can be compiled in a seperate command.
 
 #>
@@ -38,7 +38,7 @@ function Start-CompileNAVApplicationObject {
 
     # Specifies the log folder.
     [ValidateNotNullOrEmpty()]
-    [string] $LogPath = "$Env:TEMP\NavIde\$([GUID]::NewGuid().GUID)",
+    [string] $LogPath,
 
     # Specifies the filter that selects the objects to compile.
     [string] $Filter,
@@ -48,7 +48,7 @@ function Start-CompileNAVApplicationObject {
 
     # Compiles in the background returning an object that represents the background job.
     [Switch] $AsJob,
-        
+
     # Specifies the schema synchronization behaviour. The default value is 'Yes'.
     [ValidateSet('Yes', 'No', 'Force')]
     [string] $SynchronizeSchemaChanges = 'Yes',
@@ -72,7 +72,7 @@ function Start-CompileNAVApplicationObject {
     # Specifies the port on the Microsoft Dynamics NAV Server server that the Microsoft Dynamics NAV Windows PowerShell cmdlets access. The default value is 7045.
     [ValidateNotNullOrEmpty()]
     [int16]  $NavServerManagementPort)
-    
+
   if (-not $Recompile) {
     $Filter += ';Compiled=0'
     $Filter = $Filter.TrimStart(';')

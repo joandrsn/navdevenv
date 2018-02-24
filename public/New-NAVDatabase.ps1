@@ -37,7 +37,7 @@ function New-NAVDatabase {
 
     # Specifies the log folder.
     [ValidateNotNullOrEmpty()]
-    [string] $LogPath = "$Env:TEMP\NavIde\$([GUID]::NewGuid().GUID)",
+    [string] $LogPath,
 
 
     # The user name to use to authenticate to the database. The user name must exist in the database. If you do not specify a user name and password, then the command uses the credentials of the current Windows user to authenticate to the database.
@@ -48,7 +48,7 @@ function New-NAVDatabase {
     [Parameter(Mandatory = $true, ParameterSetName = "DatabaseAuthentication")]
     [string] $Password)
 
-  
+
   $commands = @()
   $commands += "Command=CreateDatabase"
   if ($Collation) {
