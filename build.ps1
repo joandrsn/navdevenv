@@ -5,6 +5,8 @@ function Set-Variables {
     $script:ModuleName = "NAVDevEnv"
     $script:ModuleGuid = '26c93502-a9af-4242-8b10-dd1941b97f11'
     $script:Author = 'Jonas Andersen'
+    $script:RespositoryURI = 'https://github.com/joandrsn/navdevenv'
+    $script:LicenseURI = 'https://github.com/joandrsn/navdevenv/blob/master/LICENSE'
     $script:TestFolder = Join-Path $PSScriptRoot 'test'
     $script:ModuleVersion = Get-NextBuildNo
     $script:Description = 'Wrapper for finsql.exe (Dynamics NAV Developer Enviroment)'
@@ -92,16 +94,18 @@ function New-ModuleManifestBuild {
   )
   Process {
     $Params = @{
-      'Path'              = $ManifestFile;
-      'Guid'              = $ModuleGuid;
-      'Author'            = $Author;
-      'RootModule'        = $ModuleFileName;
-      'FunctionsToExport' = $Functions;
-      'CmdletsToExport'   = '';
-      'VariablesToExport' = '';
-      'AliasesToExport'   = '';
+      'Path'              = $ManifestFile
+      'Guid'              = $ModuleGuid
+      'Author'            = $Author
+      'RootModule'        = $ModuleFileName
+      'FunctionsToExport' = $Functions
+      'CmdletsToExport'   = ''
+      'VariablesToExport' = ''
+      'AliasesToExport'   = ''
       'ModuleVersion'     = $ModuleVersion
-      'Description'       = $Description;
+      'Description'       = $Description
+      'ProjectUri'        = $RespositoryURI
+      'LicenseUri'        = $LicenseURI
     }
     New-ModuleManifest @Params
   }
