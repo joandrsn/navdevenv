@@ -1,0 +1,2 @@
+$global:navide = ""
+$global:database = ""
