@@ -6,9 +6,9 @@ describe 'NAVDevEnv module tests' {
     . $EntryPoint
 
     $runningIdes = Get-Process -Name "finsql" -ErrorAction Ignore
-    if($runningIdes) {
+    if ($runningIdes) {
       Write-Warning "Found running finsql.exe. Killing..."
-      foreach($runningIde in $runningIdes) {
+      foreach ($runningIde in $runningIdes) {
         $null = $runningIde.CloseMainWindow()
       }
     }
@@ -100,5 +100,10 @@ describe 'NAVDevEnv module tests' {
     Start-NAVIde -DatabaseName $Database
     $result = Get-Process -Name "finsql"
     $result | Should Not BeNullOrEmpty
+    while ($result.MainWindowHandle -eq 0) {
+      Start-Sleep -Milliseconds 10
+      $result = Get-Process -Name "finsql"
+    }
+    $result.CloseMainWindow()
   }
 }
