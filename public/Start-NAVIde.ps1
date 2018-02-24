@@ -27,7 +27,7 @@ function Start-NAVIde {
   }
 
   #Show running window if available.
-  $process = Get-Process -Name "finsql" | Where-Object {$PSItem.Path -eq $NAVIDE}
+  $process = Get-Process -Name "finsql" -ErrorAction Ignore | Where-Object {$PSItem.Path -eq $NAVIDE}
   if ($process) {
     [void] [WindowsUITricks]::ShowWindowAsync($process.MainWindowHandle, 2)
     [void] [WindowsUITricks]::ShowWindowAsync($process.MainWindowHandle, 10)
