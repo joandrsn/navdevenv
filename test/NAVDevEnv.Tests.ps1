@@ -61,7 +61,7 @@ describe 'NAVDevEnv module tests' {
       Invoke-Sqlcmd -Query $SelectStmt | Should BeNullOrEmpty
     }
     finally {
-      Remove-Item $importobject -ErrorAction Ignore
+      Remove-Item $importobject.File -ErrorAction Ignore
     }
   }
 }
