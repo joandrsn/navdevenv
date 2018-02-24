@@ -1,7 +1,6 @@
 describe 'NAVDevEnv module tests' {
 
   BeforeAll {
-    $Object = Join-Path $PSScriptRoot "COD50000.txt"
     $ParentDir = Split-Path $PSScriptRoot
     $EntryPoint = Join-Path $ParentDir "Entrypoint.ps1"
     . $EntryPoint
