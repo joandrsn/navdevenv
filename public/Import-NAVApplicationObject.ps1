@@ -31,7 +31,7 @@
 function Import-NAVApplicationObject {
   [CmdletBinding(DefaultParameterSetName = "All", ConfirmImpact = 'High')]
   Param(
-    # Specifies one or more files to import.  
+    # Specifies one or more files to import.
     [Parameter(Mandatory = $true, Position = 0, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
     [Alias('PSPath')]
     [string] $Path,
@@ -79,7 +79,7 @@ function Import-NAVApplicationObject {
     $commands = @()
     $commands += "Command=ImportObjects"
     $commands += 'File="{0}"' -f $Path
-    $commands += 'ImportAction="{0}"' -f $skipUnlicensed
+    $commands += 'ImportAction="{0}"' -f $ImportAction
     $commands += 'SynchronizeSchemaChanges="{0}"' -f $SynchronizeSchemaChanges
 
     try {
@@ -98,6 +98,6 @@ function Import-NAVApplicationObject {
     catch {
         Write-Error $PSItem
     }
-    
+
   }
 }
