@@ -22,10 +22,10 @@ function Remove-NAVApplicationObject {
     [int16]  $NavServerManagementPort)
 
   if ($PSCmdlet.ShouldProcess(
-      "Delete application objects from $DatabaseName database.",
-      "Delete application objects from $DatabaseName database.",
+      "Delete NAV objects with filter '$Filter' from $DatabaseName database.",
+      "Delete NAV objects with filter '$Filter' from $DatabaseName database.",
       'Confirm')) {
-        
+
     $commands = @()
     $commands += "Command=DeleteObjects"
     $commands += "SynchronizeSchemaChanges={0}" -f $SynchronizeSchemaChanges
