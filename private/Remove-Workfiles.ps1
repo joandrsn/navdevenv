@@ -8,7 +8,7 @@ function Remove-Workfiles
   Process
   {
     if ($Variables.CreatedFolder) {
-      Remove-Item -Recurse -ErrorAction Ignore -Path $LogPath
+      Remove-Item -Recurse -ErrorAction Ignore -Path $Variables.LogPath
     } else {
       Remove-Item -Path $Variables.ErrorLogFile -ErrorAction Ignore
       Remove-Item -Path $Variables.CommandResultFile -ErrorAction Ignore
