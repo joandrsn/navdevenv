@@ -27,7 +27,7 @@ function Start-NAVIde {
   }
 
   #Show running window if available.
-  $process = Get-Process | Where-Object {$PSItem.Path -eq $NAVIDE}
+  $process = Get-Process -Name "finsql" | Where-Object {$PSItem.Path -eq $NAVIDE}
   if ($process) {
     [void] [WindowsUITricks]::ShowWindowAsync($process.MainWindowHandle, 2)
     [void] [WindowsUITricks]::ShowWindowAsync($process.MainWindowHandle, 10)
@@ -37,7 +37,8 @@ function Start-NAVIde {
   $Argument = Get-CommonFinSQLArgument -DatabaseServer $DatabaseServer `
     -DatabaseName $DatabaseName `
     -Username $DatabaseUsername `
-    -Password $DatabasePassword
+    -Password $DatabasePassword `
+    -ID $DatabaseName
 
   Start-Process -FilePath $NAVIde -ArgumentList $Argument
 }

@@ -10,7 +10,8 @@ function Get-CommonFinSQLArgument {
     [string] $ErrorLogFile,
     [string] $NavServerName,
     [string] $NavServerInstance,
-    [int16]  $NavServerManagementPort = 7045)
+    [int16]  $NavServerManagementPort = 7045,
+    [string] $ID)
 
   Process {
     $parameters = @()
@@ -19,7 +20,7 @@ function Get-CommonFinSQLArgument {
     }
     $parameters += 'ServerName="{0}"' -f $DatabaseServer
     $parameters += 'Database="{0}"' -f $DatabaseName
-    $parameters += 'ID="{0}"' -f $DatabaseName
+    $parameters += 'ID="{0}"' -f $ID
 
     if ($CommandList) {
       $parameters += 'LogFile="{0}"' -f $ErrorLogFile

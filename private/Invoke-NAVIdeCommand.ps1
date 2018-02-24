@@ -16,26 +16,25 @@ function Invoke-NAVIdeCommand {
     [string] $ErrorText)
   Process {
     Test-NavIde
-    $LogInfo = Set-LogPathVariables -LogPath $LogPath
+    $NavDevEnvVariables = Set-NAVDevEnvVariables -LogPath $LogPath
 
-    $LogInfo.CreatedFolder = Initialize-LogPath -LogPath $LogInfo.LogPath -CommandResultFile $LogInfo.CommandResultFile -NAVErrorLogFile $LogInfo.ErrorLogFile
+    $NavDevEnvVariables.CreatedFolder = Initialize-WorkFiles -Variables $NavDevEnvVariables
 
     $Argument = Get-CommonFinSQLArgument -CommandList $CommandList `
       -DatabaseServer $DatabaseServer `
       -DatabaseName $DatabaseName `
       -Username $Username `
       -Password $Password `
-      -ErrorLogFile $LogInfo.ErrorLogFile `
+      -ErrorLogFile $NavDevEnvVariables.ErrorLogFile `
       -NavServerName $NavServerName `
       -NavServerInstance $NavServerInstance `
-      -NavServerManagementPort $NavServerManagementPort
+      -NavServerManagementPort $NavServerManagementPort `
+      -ID $NavDevEnvVariables.ID
 
     Start-NAVIdeProcess -Argument $Argument
 
-    $ErrorObject = Read-FinSQLResult -LogPath $LogInfo.LogPath `
-      -CommandResultFile $LogInfo.CommandResultFile `
-      -ErrorLogFile $LogInfo.ErrorLogFile `
-      -CreatedFolder $LogInfo.CreatedFolder
+    $ErrorObject = Read-FinSQLResult -ErrorLogFile $NavDevEnvVariables.ErrorLogFile
+    Remove-Workfiles -Variables $NavDevEnvVariables
 
     if (-not $errorobject.Successful) {
       $FullErrorMessage = '{0}: {1}' -f $ErrorText, $ErrorObject.ErrorMessage
